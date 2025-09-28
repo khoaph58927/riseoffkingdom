@@ -1,0 +1,1010 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shop Acc Game</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin:0; padding:0; background: #fff; }
+    header { background:#fff; padding:15px 30px; display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid #ddd; }
+    header nav a { margin:0 15px; text-decoration:none; color:#333; font-weight:600; }
+    .btn { background:#ffcc00; padding:8px 16px; border-radius:6px; text-decoration:none; color:#000; font-weight:bold; }
+    .banner { background:#f9d55b; padding:40px; display:flex; align-items:center; justify-content:space-between; }
+    .banner h2 { font-size:32px; margin:0; }
+    .categories { text-align:center; margin:30px 0; }
+    .categories button { margin:5px; padding:10px 20px; border:none; border-radius:8px; cursor:pointer; background:#eee; font-weight:600; }
+    .categories button.active { background:#ffcc00; }
+    .products { display:grid; grid-template-columns:repeat(auto-fit, minmax(250px,1fr)); gap:20px; padding:20px; }
+    .product { background:#fff; border-radius:12px; box-shadow:0 2px 6px rgba(0,0,0,0.1); padding:15px; text-align:center; }
+    .product img { max-width:100%; border-radius:8px; }
+    .product h3 { font-size:16px; margin:10px 0; }
+    .product p { color:#444; font-size:14px; }
+    .product .price { font-size:18px; font-weight:bold; margin:10px 0; }
+    .sidebar { padding:20px; background:#fff; border-radius:12px; margin:20px; }
+    footer { background:#222; color:#fff; text-align:center; padding:20px; margin-top:30px; }
+    /* Slider */
+.banner-slider {
+  position: relative;
+  overflow: hidden;
+  background: #f9d55b;
+  height: 250px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.slides {
+  display: flex;
+  transition: transform 0.6s ease-in-out;
+  width: 300%; /* 3 slide */
+}
+
+.slide {
+  min-width: 100%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 20px;
+}
+
+.slide .content {
+  max-width: 60%;
+}
+.slide h2 {
+  font-size: 28px;
+  margin-bottom: 10px;
+}
+
+.prev, .next {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(0,0,0,0.5);
+  color: #fff;
+  border: none;
+  padding: 10px;
+  border-radius: 50%;
+  cursor: pointer;
+}
+.prev { left: 10px; }
+.next { right: 10px; }
+
+
+/* Thanh top header */
+.top-header {
+  background: #0b132b;
+  color: #fff;
+  font-size: 14px;
+  padding: 5px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.top-header .contact-info span {
+  margin-left: 15px;
+}
+
+/* Header chính */
+.main-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 30px;
+  background: #fff;
+  border-bottom: 1px solid #eee;
+}
+
+/* Logo */
+.logo img {
+  border-radius: 50%;
+  transition: transform 0.3s ease;
+}
+.logo img:hover {
+  transform: rotate(-5deg) scale(1.05);
+}
+
+/* Thanh tìm kiếm */
+.search-bar {
+  display: flex;
+  border: 1px solid #ddd;
+  border-radius: 30px;
+  overflow: hidden;
+  flex: 1;
+  max-width: 600px;
+  margin: 0 30px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  transition: box-shadow 0.3s ease;
+}
+.search-bar:hover {
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+
+.search-bar select {
+  border: none;
+  padding: 10px;
+  font-weight: bold;
+  background: #f5f5f5;
+}
+.search-bar input {
+  flex: 1;
+  border: none;
+  padding: 10px;
+  outline: none;
+}
+.search-bar input:focus {
+  background: #fffbe6;
+}
+.search-bar button {
+  border: none;
+  background: #ffcc00;
+  padding: 10px 20px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+.search-bar button:hover {
+  background: #ffb400;
+}
+
+/* Hotline */
+.hotline {
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+}
+.hotline .icon {
+  font-size: 32px;
+  margin-right: 10px;
+  animation: pulse 2s infinite;
+}
+
+/* Hiệu ứng icon hotline nhấp nháy */
+@keyframes pulse {
+  0% { transform: scale(1); color: #ffcc00; }
+  50% { transform: scale(1.2); color: #ff8000; }
+  100% { transform: scale(1); color: #ffcc00; }
+}
+
+ /* Navbar */
+ body {
+      background: linear-gradient(120deg, #ffffff, #f9f9ff, #eef2ff);
+  background-attachment: fixed;
+  min-height: 100vh;
+  margin: 0;
+    }
+
+    /* Navbar full width */
+    .navbar {
+      width: 100%;                  /* phủ toàn màn hình */
+      display: flex;
+      justify-content: space-between; /* dàn đều: trái - giữa - phải */
+      align-items: center;
+      padding: 15px 40px;
+      box-sizing: border-box;
+    
+    }
+
+    /* Menu item */
+    .navbar .menu {
+      display: flex;
+      gap: 30px;
+    }
+
+    .navbar a {
+      text-decoration: none;
+      color: #000;
+      font-weight: bold;
+      transition: color 0.3s ease;
+    }
+
+    .navbar a:hover {
+      color: #0077b6;
+    }
+
+/* Hiệu ứng underline trượt */
+.navbar a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -3px;
+  width: 0%;
+  height: 2px;
+  background: #ffcc00;
+  transition: width 0.3s ease;
+}
+.navbar a:hover::after {
+  width: 100%;
+}
+
+/* Hiệu ứng khi click */
+.navbar a:active {
+  transform: scale(0.95);
+  color: #ff6600;
+}
+
+
+
+.logo-wave {
+  font-size: 28px; /* chữ nhỏ lại */
+  font-weight: bold;
+  text-align: center;
+  margin: 40px 0;
+  position: relative;
+  display: inline-block;
+  color: #ffcc00; /* màu vàng chủ đạo */
+  overflow: hidden;
+}
+
+/* Tạo sóng sáng lướt qua */
+.logo-wave::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(120deg, transparent, rgba(255,255,255,0.8), transparent);
+  animation: wave 3s infinite;
+}
+
+/* Hiệu ứng lướt */
+@keyframes wave {
+  0% { left: -100%; }
+  50% { left: 100%; }
+  100% { left: 100%; }
+}
+/* Khung chứa logo */
+.logo-box {
+  display: inline-block;
+  padding: 10px 20px;   /* giảm padding để khung bé lại */
+  border-radius: 10px;  /* bo tròn nhẹ hơn */
+  border: 2px solid transparent; /* viền mảnh hơn */
+  background: linear-gradient(45deg, #ff512f, #dd2476, #24c6dc, #514a9d);
+  background-size: 300% 300%;
+  animation: borderGradient 6s infinite linear;
+  box-shadow: 0 0 10px rgba(0,0,0,0.15);
+  margin: 20px auto;    /* thu nhỏ khoảng cách xung quanh */
+}
+
+/* Chữ bên trong */
+.logo-wave {
+  font-size: 24px;  /* chữ nhỏ hơn nữa */
+  font-weight: bold;
+  text-align: center;
+  position: relative;
+  display: inline-block;
+  color: #fff;
+  overflow: hidden;
+  letter-spacing: 1px;
+}
+
+/* Sóng sáng lướt qua chữ */
+.logo-wave::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(120deg, transparent, rgba(255,255,255,0.8), transparent);
+  animation: wave 3s infinite;
+}
+
+/* Hiệu ứng sóng lướt */
+@keyframes wave {
+  0% { left: -100%; }
+  50% { left: 100%; }
+  100% { left: 100%; }
+}
+
+/* Hiệu ứng khung gradient chạy */
+@keyframes borderGradient {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* Banner */
+.sale-banner {
+  display: inline-block;
+  padding: 20px 40px;
+  border-radius: 15px;
+  background: linear-gradient(135deg, #ff416c, #ff4b2b, #6a11cb, #2575fc);
+  background-size: 400% 400%;
+  animation: gradientBG 8s infinite alternate;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+}
+
+/* Chữ */
+.sale-text {
+  font-family: 'Bebas Neue', sans-serif; /* font mạnh mẽ */
+  font-size: 22px;
+  color: #fff30ee3;
+  position: relative;
+  overflow: hidden;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  animation: pulse 2s infinite;
+}
+
+/* Hiệu ứng ánh sáng lướt qua chữ */
+.sale-text::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(120deg, transparent, rgba(209, 219, 219, 0.6), transparent);
+  animation: shine 3s infinite;
+}
+/* Khung tím full width */
+.sale-banner {
+  width: 100%;
+  background: linear-gradient(135deg, #5cb2c6cf, #04759b); /* tím -> xanh */
+  color: #fff;
+  text-align: center;
+  padding: 20px 0;
+  box-sizing: border-box;
+}
+
+/* Chữ giảm giá */
+.sale-banner h2 {
+  margin: 0 0 15px 0;
+  font-size: 28px;
+  font-weight: bold;
+  text-shadow: 0 0 10px rgba(255,255,255,0.7);
+}
+
+/* Navbar trong khung tím */
+.sale-banner .navbar {
+  display: flex;
+  justify-content: center;   /* căn giữa menu */
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 30px;
+  margin: 0;
+  padding: 10px 0;
+}
+
+/* Menu item */
+.sale-banner .navbar a {
+  text-decoration: none;
+  color: #fff;
+  font-weight: bold;
+  transition: color 0.3s ease, transform 0.2s ease;
+}
+
+.sale-banner .navbar a:hover {
+  color: #ffcc00;
+  transform: translateY(-2px);
+}
+
+/* Nút BUY */
+.sale-banner .navbar .btn-buy {
+  background: #ffcc00;
+  color: #000;
+  padding: 6px 14px;
+  border-radius: 8px;
+  font-weight: bold;
+  transition: all 0.3s ease;
+}
+
+.sale-banner .navbar .btn-buy:hover {
+  background: #ff9900;
+  color: #fff;
+  transform: scale(1.05);
+}
+
+
+/* Gradient nền động */
+@keyframes gradientBG {
+  0% { background-position: 0% 50%; }
+  100% { background-position: 100% 50%; }
+}
+
+/* Hiệu ứng ánh sáng lướt qua chữ */
+@keyframes shine {
+  0% { left: -100%; }
+  50% { left: 100%; }
+  100% { left: 100%; }
+}
+
+/* Hiệu ứng chữ nhấp nháy nhẹ */
+@keyframes pulse {
+  0% { transform: scale(1); text-shadow: 0 0 5px #fff; }
+  50% { transform: scale(1.05); text-shadow: 0 0 20px #fffa; }
+  100% { transform: scale(1); text-shadow: 0 0 5px #fff; }
+}
+.btn-buy {
+  display: inline-block;
+  padding: 12px 24px;   /* to hơn */
+  font-size: 20px;      /* chữ to hơn */  
+  font-weight: bold;
+  color: #000;
+  text-decoration: none;
+  border-radius: 6px;  /* bo tròn gọn gàng */
+  position: relative;
+  overflow: hidden;
+  background: #5e5b50; /* nền vàng mặc định */
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* Ánh sáng lướt (ẩn mặc định) */
+.btn-buy::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 70%;          /* hẹp hơn để hợp với nút nhỏ */
+  height: 100%;
+  background: linear-gradient(120deg, transparent, rgba(255,255,255,0.6), transparent);
+  transform: skewX(-20deg);
+  opacity: 0;
+}
+
+/* Hover: nổi bật hơn */
+.btn-buy:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+}
+
+/* Khi có class .shine thì hiệu ứng lướt xuất hiện */
+.btn-buy.shine::before {
+  animation: shine 0.8s forwards;
+  opacity: 1;
+}
+
+@keyframes shine {
+  0% { left: -100%; }
+  100% { left: 120%; }
+}
+
+
+
+
+
+.product-card {
+  background: #fff;
+  border-radius: 12px;
+  padding: 20px;
+  text-align: center;
+  transition: all 0.4s ease;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  cursor: pointer;
+  position: relative;
+  overflow: hidden; /* ánh sáng không tràn ra ngoài */
+}
+
+/* Ánh sáng phủ full card */
+.product-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -150%;   /* bắt đầu ngoài khung */
+  width: 200%;   /* rộng hơn để phủ toàn bộ */
+  height: 100%;  /* cao bằng card */
+  background: linear-gradient(
+    120deg,
+    rgba(255,255,255,0) 0%,
+    rgba(255,255,255,0.8) 50%,
+    rgba(255,255,255,0) 100%
+  );
+  transform: skewX(-25deg);
+  z-index: 2; /* nằm trên cùng */
+  pointer-events: none; /* không chặn click */
+}
+
+/* Hover chạy ánh sáng */
+.product-card:hover::before {
+  animation: shine 1s forwards;
+}
+
+@keyframes shine {
+  0% { left: -150%; }
+  100% { left: 150%; }
+}
+
+
+
+/* Tiêu đề */
+.product-card h3 {
+  font-size: 18px;
+  font-weight: bold;
+  margin: 12px 0 8px;
+  color: #222;
+  transition: color 0.3s ease;
+}
+
+.product-card:hover h3 {
+  color: #6a11cb;
+}
+
+/* Mô tả */
+.product-card p {
+  font-size: 14px;
+  color: #666;
+  margin: 0 0 10px;
+}
+
+/* Giá */
+.product-card .price {
+  font-size: 20px;
+  font-weight: bold;
+  color: #e63946;
+  margin-bottom: 12px;
+}
+
+/* Nút Xem chi tiết */
+.btn-detail {
+  display: inline-block;
+  padding: 8px 18px;
+  background: #ae9532;
+  color: #000;
+  font-weight: bold;
+  border-radius: 8px;
+  text-decoration: none;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+/* Hover: ánh sáng lướt */
+.btn-detail::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 80%;
+  height: 100%;
+  background: linear-gradient(120deg, transparent, rgba(255,255,255,0.6), transparent);
+  transform: skewX(-20deg);
+  transition: left 0.6s ease;
+}
+
+.btn-detail:hover::before {
+  left: 120%;
+}
+
+.btn-detail:hover {
+  background: #ff9900;
+  color: #fff;
+  transform: scale(1.05);
+}
+
+/* Grid layout */
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* mỗi hàng 4 cột */
+  gap: 20px; /* khoảng cách giữa các sản phẩm */
+  padding: 20px;
+}
+
+/* Card sản phẩm */
+.product-card {
+  background: #fff;
+  border-radius: 12px;
+  padding: 20px;
+  text-align: center;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  cursor: pointer;
+}
+
+.product-card img {
+  width: 100%;
+  max-height: 250px;
+  object-fit: contain;
+  transition: transform 0.4s ease;
+}
+
+.product-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+}
+
+.product-card:hover img {
+  transform: scale(1.05);
+}
+
+/* Tiêu đề */
+.product-card h3 {
+  font-size: 16px;
+  font-weight: bold;
+  margin: 10px 0 6px;
+  color: #222;
+  transition: color 0.3s ease;
+}
+
+.product-card:hover h3 {
+  color: #15b5af;
+}
+
+/* Mô tả */
+.product-card p {
+  font-size: 14px;
+  color: #666;
+  margin: 0 0 8px;
+}
+
+/* Giá */
+.product-card .price {
+  font-size: 18px;
+  font-weight: bold;
+  color: #e63946;
+  margin-bottom: 12px;
+}
+
+/* Nút Xem chi tiết */
+.btn-detail {
+  display: inline-block;
+  padding: 8px 16px;
+  background: #ffcc00;
+  color: #000;
+  font-weight: bold;
+  border-radius: 8px;
+  text-decoration: none;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.btn-detail::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 80%;
+  height: 100%;
+  background: linear-gradient(120deg, transparent, rgba(255,255,255,0.6), transparent);
+  transform: skewX(-20deg);
+  transition: left 0.6s ease;
+}
+
+.btn-detail:hover::before {
+  left: 120%;
+}
+
+.btn-detail:hover {
+  background: #ff9900;
+  color: #fff;
+  transform: scale(1.05);
+}
+
+
+
+/* Khung giá */
+.price-box {
+  margin: 12px 0;
+}
+
+/* Giá cũ */
+.old-price {
+  font-size: 16px;
+  color: #888;
+  text-decoration: line-through;
+  margin-right: 10px;
+}
+
+/* Giá mới */
+.new-price {
+  font-size: 20px;
+  font-weight: bold;
+  color: #e63946; /* đỏ nổi bật */
+}
+
+
+/* phần lọc giá sản phẩm ở dưới  */
+.filter-bar {
+  display: flex;
+  gap: 12px;
+  margin: 20px 0;
+}
+
+.filter-btn {
+  padding: 8px 18px;
+  border: none;
+  border-radius: 8px;
+  background: #eee;
+  cursor: pointer;
+  font-weight: bold;
+  transition: all 0.3s ease;
+}
+
+.filter-btn:hover {
+  background: #ffd633; /* vàng khi hover */
+}
+
+.filter-btn.active {
+  background: #ffcc00; /* giữ vàng khi click */
+  color: #000;
+}
+/* phần lọc giá sản phẩm ở trên */
+
+  </style>
+</head>
+<body>
+    <!-- Thanh top header -->
+<div class="top-header">
+  <span>Ưu Đãi Hấp Dẫn Chưa Từng Có Tại Các Shop Khác</span>
+  <div class="contact-info">
+    <span>📞 0949257924</span>
+    <span>✉️ longnhat712@gmail.com</span>
+  </div>
+</div>
+
+<!-- Header chính -->
+<header class="main-header">
+  <div class="logo">
+    <img src="anh/38d7ae421ae0afbef6f1.jpg" alt="Logo" height="80">
+  </div>
+
+  <!-- Thanh tìm kiếm -->
+  <div class="search-bar">
+    <select>
+      <option>Chọn sản phẩm</option>
+      <option>Acc Dưới 1 Triệu</option>
+      <option>Acc 1-2 Triệu</option>
+      <option>Acc Trên 2 Triệu</option>
+    </select>
+    <input type="text" placeholder="Tìm kiếm sản phẩm dịch vụ...">
+    <button>🔍</button>
+  </div>
+
+  <!-- Hotline -->
+  <div class="hotline">
+    <span class="icon">🎧</span>
+    <div>
+      <strong>Call Ngay Cho Tôi:</strong><br>
+      <span>0949257924</span>
+    </div>
+  </div>
+</header>
+
+    
+
+  <!-- Header -->
+  <header>
+   <div class="sale-banner">
+  <h2 class="sale-text"> RISE OFF KINGDOM </h2>
+
+  <!-- Navbar full width -->
+<nav class="navbar">
+  <a href="khoa.html">Trang Chủ</a>
+  <a href="tragop.html">Mua Acc Trả Góp</a>
+  <a href="baohanh.html">Chính Sách Bảo Hành</a>
+  <a href="lienhe.html">Liên Hệ</a>
+  <a href="chamsockh.html">Chăm Sóc Khách Hàng</a>
+  <a href="mua.html" class="btn-buy">🛒 BUY </a>
+</nav>
+</div>
+
+
+  </header>
+
+  <!-- Banner --> 
+  <!-- Banner Slider -->
+<section class="banner-slider">
+  <div class="slides">
+    <!-- Slide 1 -->
+    <div class="slide active">
+      <div class="content">
+        <h2>Giao Dịch Trung Gian</h2>
+        <p>Chuyên mua bán giao dịch trung gian an toàn, uy tín</p>
+        <a href="#" class="btn">Liên Hệ Ngay</a>
+      </div>
+      <img src="https://cdn-icons-png.flaticon.com/512/1086/1086933.png" alt="Game" width="120">
+    </div>
+
+    <!-- Slide 2 -->
+    <div class="slide">
+      <div class="content">
+        <h2>Shop Acc Game Giá Rẻ</h2>
+        <p>Đảm bảo acc chất lượng, uy tín</p>
+        <a href="#" class="btn">Xem Ngay</a>
+      </div>
+      <img src="https://tse1.mm.bing.net/th/id/OIP.cS0gSwI9DD7p2ucChlAslQHaHa?rs=1&pid=ImgDetMain&o=7&rm=3" alt="Game" width="120">
+    </div>
+
+    <!-- Slide 3 -->    
+    <div class="slide">
+      <div class="content">
+        <h2>Nạp Game Chiết Khấu</h2>
+        <p>Giá tốt nhất thị trường</p>
+        <a href="#" class="btn">Nạp Ngay</a>
+      </div>
+      <img src="https://tse1.mm.bing.net/th/id/OIP.cS0gSwI9DD7p2ucChlAslQHaHa?rs=1&pid=ImgDetMain&o=7&rm=3" alt="Game" width="120">
+    </div>
+  </div>
+
+  <!-- Nút điều hướng -->
+  <button class="prev">❮</button>
+  <button class="next">❯</button>
+</section>
+
+
+  <!-- Categories -->
+ <div class="filter-bar">
+  <button class="filter-btn active" data-filter="all">All</button>
+  <button class="filter-btn" data-filter="under1">ACC Dưới 1 Triệu</button>
+  <button class="filter-btn" data-filter="1to2">ACC 1-2 Triệu</button>
+  <button class="filter-btn" data-filter="over2">ACC Trên 2 Triệu</button>
+  <button class="filter-btn" data-filter="farm">ACC Farm</button>
+</div>
+
+
+<div class="product-grid"></div>
+  <!-- Products -->
+ <div class="product-grid">
+  <div class="product-card"  data-price="3200000">  
+    <img src="anh/9c2e57a3-2149-455a-90c9-500b55777ce1.png" alt="ACC VIP 16">
+    <h3>ACC VIP 16 đủ vé 4 set đỏ</h3>
+    <p>Acc 53m pow + nhiều farm</p>
+     <!-- Giá -->
+  <div class="price-box">
+    <span class="old-price">4,000,000 đ</span>
+    <span class="new-price">3,200,000 đ</span>
+  </div>
+
+  <a href="#" class="btn-detail">Xem chi tiết</a>
+</div>
+
+  <div class="product-card" data-price="3200000">
+    <img src="anh/ChatGPT Image Sep 25, 2025, 03_05_14 AM.png" alt="ACC VIP 17">
+    <h3>ACC VIP 17 max 20 cam</h3>
+    <p>Full 4 set cam</p>
+    <!-- Giá -->
+  <div class="price-box">
+    <span class="old-price">4,000,000 đ</span>
+    <span class="new-price">3,200,000 đ</span>
+  </div>
+
+  <a href="#" class="btn-detail">Xem chi tiết</a>
+</div>
+
+  <div class="product-card" data-price="44000000">
+    <img src="anh/ChatGPT Image Sep 25, 2025, 03_05_14 AM.png" alt="ACC VIP 17">
+    <h3>ACC VIP 17 full 5 set đỏ</h3>
+    <p>Đủ xu, vũ trang ngon</p>
+    <div class="price">4,400,000 đ</div>
+    <a href="#" class="btn-detail">Xem chi tiết</a>
+  </div>
+
+  <div class="product-card" data-price="900000">
+    <img src="anh/ChatGPT Image Sep 25, 2025, 03_05_14 AM.png" alt="ACC Farm">
+    <h3>ACC Farm 4 nhà 25</h3>
+    <p>Đủ vé, giá rẻ</p>
+    <div class="price">900,000 đ</div>
+    <a href="#" class="btn-detail">Xem chi tiết</a>
+  </div>
+
+  <!-- hàng 2 -->
+  <div class="product-card">
+    <img src="anh/ChatGPT Image Sep 25, 2025, 03_05_14 AM.png" alt="ACC VIP 18">
+    <h3>ACC VIP 18 mạnh</h3>
+    <p>Nhiều skin, gem</p>
+    <div class="price">6,200,000 đ</div>
+    <a href="#" class="btn-detail">Xem chi tiết</a>
+  </div>
+
+  <div class="product-card">
+    <img src="anh/ChatGPT Image Sep 25, 2025, 03_05_14 AM.png" alt="ACC VIP 19">
+    <h3>ACC VIP 19</h3>
+    <p>Skin full cam</p>
+    <div class="price">7,000,000 đ</div>
+    <a href="#" class="btn-detail">Xem chi tiết</a>
+  </div>
+
+  <div class="product-card">
+    <img src="anh/ChatGPT Image Sep 25, 2025, 03_05_14 AM.png" alt="ACC VIP 20">
+    <h3>ACC VIP 20 khủng</h3>
+    <p>All commander</p>
+    <div class="price">10,000,000 đ</div>
+    <a href="#" class="btn-detail">Xem chi tiết</a>
+  </div>
+
+  <div class="product-card">
+    <img src="anh/ChatGPT Image Sep 25, 2025, 03_05_14 AM.png" alt="ACC Farm max">
+    <h3>ACC Farm VIP</h3>
+    <p>Nhiều tài nguyên</p>
+    <div class="price">1,500,000 đ</div>
+    <a href="#" class="btn-detail">Xem chi tiết</a>
+  </div>
+</div>
+
+
+  <!-- Sidebar tin tức -->
+  <div class="sidebar">
+    <h3>Tin Mới Nhất</h3>
+    <ul>
+      <li>Shop acc game giá rẻ</li>
+      <li>Nạp game chiết khấu tốt nhất</li>
+      <li>Giới thiệu dịch vụ của shop</li>
+    </ul>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <p>📞 0899631170 | ✉️ phaigiau205@gmail.com</p>
+    <p>© 2025 Shop Acc Game - All Rights Reserved</p>
+  </footer>
+
+  <script>
+document.querySelectorAll(".navbar a").forEach(link => {
+  link.addEventListener("click", function(e) {
+    e.preventDefault();
+    document.body.classList.add("fade-out");
+    setTimeout(() => {
+      window.location = this.href;
+    }, 400); // chờ 0.4s rồi chuyển trang
+  });
+});
+</script>
+
+
+<script>
+function shineEffect(el) {
+  el.classList.add("shine");
+  setTimeout(() => {
+    el.classList.remove("shine");
+  }, 800); // xóa hiệu ứng sau 0.8s để nút click lại được
+}
+</script>
+
+
+</body>
+<script>
+  let index = 0;
+  const slides = document.querySelectorAll(".slide");
+  const slidesContainer = document.querySelector(".slides");
+
+  function showSlide(n) {
+    index = (n + slides.length) % slides.length; // tránh lỗi index âm
+    slidesContainer.style.transform = `translateX(-${index * 100}%)`;
+  }
+
+  function nextSlide() { showSlide(index + 1); }
+  function prevSlide() { showSlide(index - 1); }
+
+  document.querySelector(".next").addEventListener("click", nextSlide);
+  document.querySelector(".prev").addEventListener("click", prevSlide);
+
+  // Tự động chạy sau 4 giây
+  setInterval(nextSlide, 5000);
+</script>
+
+<script>
+const filterBtns = document.querySelectorAll('.filter-btn');
+const products = document.querySelectorAll('.product-card');
+
+filterBtns.forEach(btn => {
+  btn.addEventListener('click', () => {
+    // Xóa active cũ
+    filterBtns.forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+
+    const filter = btn.dataset.filter;
+
+    products.forEach(p => {
+      const price = parseInt(p.dataset.price);
+
+      // Hiển thị theo filter
+      if (filter === "all") {
+        p.style.display = "block";
+      } else if (filter === "under1" && price < 1000000) {
+        p.style.display = "block";
+      } else if (filter === "1to2" && price >= 1000000 && price <= 2000000) {
+        p.style.display = "block";
+      } else if (filter === "over2" && price > 2000000) {
+        p.style.display = "block";
+      } else if (filter === "farm" && p.innerText.includes("Farm")) {
+        p.style.display = "block";
+      } else {
+        p.style.display = "none";
+      }
+    });
+  });
+});
+</script>
+
+
+</html>
