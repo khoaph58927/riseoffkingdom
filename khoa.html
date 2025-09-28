@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Shop Acc Game</title>
@@ -22,6 +23,42 @@
     .product .price { font-size:18px; font-weight:bold; margin:10px 0; }
     .sidebar { padding:20px; background:#fff; border-radius:12px; margin:20px; }
     footer { background:#222; color:#fff; text-align:center; padding:20px; margin-top:30px; }
+
+    .menu {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+.menu a {
+    padding: 10px;
+    flex: 1 1 150px; /* tự co giãn */
+}
+
+
+@media (max-width: 768px) {
+    .header, .menu, .content {
+        flex-direction: column;
+        text-align: center;
+    }
+    .menu a {
+        font-size: 14px;
+        padding: 8px;
+    }
+}
+
+@media (min-width: 1024px) {
+    .menu a {
+        font-size: 18px;
+        padding: 12px 20px;
+    }
+}
+
+
+button {
+    font-size: 1rem;
+    padding: 0.8em 1.2em;
+}
+
     /* Slider */
 .banner-slider {
   position: relative;
@@ -1008,4 +1045,5 @@ filterBtns.forEach(btn => {
 
 
 </html>
+
 
